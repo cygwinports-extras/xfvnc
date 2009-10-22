@@ -1,0 +1,10 @@
+inherit xfce4 git
+
+CYGCONF_ARGS="--enable-maintainer-mode"
+
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+	sed -e "s/@LINGUAS@/$(sed -e '/^#/d' po/LINGUAS)/g" \
+		-e "s/r@REVISION@//g" \
+		< configure.ac.in > configure.ac
+}
